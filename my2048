@@ -1,0 +1,1332 @@
+#!/bin/sh
+
+##declare whether merge or move
+mm=""
+#####game
+game ()
+{
+#new game (1) or resume 
+if [ "$1" = "1" ] ; then
+	a="";b="";c="";d=""
+	e="";f="";g="";h=""
+	i="";j="";k="";l=""
+	m="";n="";o="";p=""
+	count=0
+	generate
+	generate
+fi
+
+t=""
+while [ "$t" != "q"  ] 
+do
+
+if [ "$a" = "2048" ] ; then
+	dialog --exit-label "You Win" --tailbox congratulations 13 70
+	break
+elif [ "$b" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$c" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$d" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$e" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$f" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$g" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$h" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$i" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$j" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$k" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$l" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$m" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$n" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$o" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+elif [ "$p" = "2048" ] ; then
+        dialog --exit-label "You Win" --tailbox congratulations 13 70
+        break
+fi
+
+
+dialog --no-collapse --infobox "`awk -v a=$a -v b=$b -v c=$c -v d=$d -v e=$e -v f=$f -v g=$g -v h=$h -v i=$i -v j=$j -v k=$k -v l=$l -v m=$m -v n=$n -v o=$o -v p=$p 'BEGIN{print "---------------------------------"
+;print "|       |       |       |       |";printf ("|%6s |%6s |%6s |%6s |\n",a,b,c,d);print "|       |       |       |       |";print "---------------------------------"
+;print "|       |       |       |       |";printf ("|%6s |%6s |%6s |%6s |\n",e,f,g,h);print "|       |       |       |       |";print "---------------------------------"
+;print "|       |       |       |       |";printf ("|%6s |%6s |%6s |%6s |\n",i,j,k,l);print "|       |       |       |       |";print "---------------------------------"
+;print "|       |       |       |       |";printf ("|%6s |%6s |%6s |%6s |\n",m,n,o,p);print "|       |       |       |       |";print "---------------------------------"}'`" 25 50
+
+getc t
+
+if [ "$t" = "s" ] ; then
+	move s
+	merge s
+	move s
+	if [ ! -z $mm  ] ; then 
+		generate
+	fi
+	mm=""
+elif [ "$t" = "w" ] ; then
+	move w
+        merge w
+        move w
+        if [ ! -z $mm  ] ; then
+                generate
+        fi
+        mm=""
+elif [ "$t" = "a" ] ; then
+        move a
+        merge a
+        move a
+        if [ ! -z $mm  ] ; then
+                generate
+        fi
+        mm=""
+elif [ "$t" = "d" ] ; then
+        move d
+        merge d
+        move d
+        if [ ! -z $mm  ] ; then
+                generate
+        fi
+        mm=""
+fi
+	
+done
+}
+#####################################
+
+##merge
+merge ()
+{
+   if [ "$1" = "w" ] ; then
+	## row 1
+	if [ ! -z $e ] ; then
+		if [ "$e" = "$a" ] ; then
+			a=$(($a + $e))
+			e=""
+			count=$(($count - 1))
+			mm="1"
+		fi
+	fi
+	if [ ! -z $i ] ; then
+		if [ "$i" = "$e" ] ; then
+                	e=$(($e + $i))
+                	i=""
+                	count=$(($count - 1))
+                        mm="1"
+	        fi
+	fi
+	if [ ! -z $m ] ; then
+		if [ "$m" = "$i" ] ; then
+                	i=$(($i + $m))
+               		 m=""
+              		 count=$(($count - 1))
+                        mm="1"
+        	fi
+	fi
+	## row 2
+	if [ ! -z $f ] ; then
+                if [ "$f" = "$b" ] ; then
+                        b=$(($b + $f))
+                        f=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $j ] ; then
+                if [ "$j" = "$f" ] ; then
+                        f=$(($f + $j))
+                        j=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $n ] ; then
+                if [ "$n" = "$j" ] ; then
+                         j=$(($j + $n))
+                         n=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+	## row 3
+	if [ ! -z $g ] ; then
+                if [ "$g" = "$c" ] ; then
+                        c=$(($c + $g))
+                        g=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $k ] ; then
+                if [ "$k" = "$g" ] ; then
+                        g=$(($g + $k))
+                        k=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $o ] ; then
+                if [ "$o" = "$k" ] ; then
+                         k=$(($k + $o))
+                         o=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+	## row 4
+	if [ ! -z $h ] ; then
+                if [ "$h" = "$d" ] ; then
+                        d=$(($d + $h))
+                        h=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $l ] ; then
+                if [ "$l" = "$h" ] ; then
+                        h=$(($h + $l))
+                        l=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $p ] ; then
+                if [ "$p" = "$l" ] ; then
+                         l=$(($l + $p))
+                         p=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+
+   elif [ "$1" = "a" ] ; then
+	 ## row 1
+        if [ ! -z $b ] ; then
+                if [ "$b" = "$a" ] ; then
+                        a=$(($a + $b))
+                        b=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $c ] ; then
+                if [ "$c" = "$b" ] ; then
+                        b=$(($b + $c))
+                        c=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $d ] ; then
+                if [ "$d" = "$c" ] ; then
+                         c=$(($c + $d))
+                         d=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        ## row 2
+        if [ ! -z $f ] ; then
+                if [ "$f" = "$e" ] ; then
+                        e=$(($e + $f))
+                        f=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $g ] ; then
+                if [ "$g" = "$f" ] ; then
+                        f=$(($f + $g))
+                        g=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $h ] ; then
+                if [ "$h" = "$g" ] ; then
+                         g=$(($g + $h))
+                         h=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+         ## row 3
+        if [ ! -z $j ] ; then
+                if [ "$j" = "$i" ] ; then
+                        i=$(($i + $j))
+                        j=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $k ] ; then
+                if [ "$k" = "$j" ] ; then
+                        j=$(($j + $k))
+                        k=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $l ] ; then
+                if [ "$l" = "$k" ] ; then
+                         k=$(($k + $l))
+                         l=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        ## row 4
+        if [ ! -z $n ] ; then
+                if [ "$n" = "$m" ] ; then
+                        m=$(($m + $n))
+                        n=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $o ] ; then
+                if [ "$o" = "$n" ] ; then
+                        n=$(($n + $o))
+                        o=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $p ] ; then
+                if [ "$p" = "$o" ] ; then
+                         o=$(($o + $p))
+                         p=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+  
+   elif [ "$1" = "s" ] ; then
+	 ## row 1
+        if [ ! -z $i ] ; then
+                if [ "$i" = "$m" ] ; then
+                        m=$(($m + $i))
+                        i=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $e ] ; then
+                if [ "$e" = "$i" ] ; then
+                        i=$(($i + $e))
+                        e=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $a ] ; then
+                if [ "$a" = "$e" ] ; then
+                         e=$(($e + $a))
+                         a=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        ## row 2
+        if [ ! -z $j ] ; then
+                if [ "$j" = "$n" ] ; then
+                        n=$(($n + $j))
+                        j=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $f ] ; then
+                if [ "$f" = "$j" ] ; then
+                        j=$(($j + $f))
+                        f=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $b ] ; then
+                if [ "$b" = "$f" ] ; then
+                         f=$(($f + $b))
+                         b=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+	 ## row 3
+        if [ ! -z $k ] ; then
+                if [ "$k" = "$o" ] ; then
+                        o=$(($o + $k))
+                        k=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $g ] ; then
+                if [ "$g" = "$k" ] ; then
+                        k=$(($k + $g))
+                        g=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $c ] ; then
+                if [ "$c" = "$g" ] ; then
+                         g=$(($g + $c))
+                         c=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        ## row 4
+        if [ ! -z $l ] ; then
+                if [ "$l" = "$p" ] ; then
+                        p=$(($p + $l))
+                        l=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $h ] ; then
+                if [ "$h" = "$l" ] ; then
+                        l=$(($l + $h))
+                        h=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $d ] ; then
+                if [ "$d" = "$h" ] ; then
+                         h=$(($h + $d))
+                         d=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+
+   elif [ "$1" = "d" ] ; then
+   	 ## row 1
+        if [ ! -z $c ] ; then
+                if [ "$c" = "$d" ] ; then
+                        d=$(($d + $c))
+                        c=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $b ] ; then
+                if [ "$b" = "$c" ] ; then
+                        c=$(($c + $b))
+                        b=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $a ] ; then
+                if [ "$a" = "$b" ] ; then
+                         b=$(($b + $a))
+                         a=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        ## row 2
+        if [ ! -z $g ] ; then
+                if [ "$g" = "$h" ] ; then
+                        h=$(($h + $g))
+                        g=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $f ] ; then
+                if [ "$f" = "$g" ] ; then
+                        g=$(($g + $f))
+                        f=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $e ] ; then
+                if [ "$e" = "$f" ] ; then
+                         f=$(($f + $e))
+                         e=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+	 ## row 3
+        if [ ! -z $k ] ; then
+                if [ "$k" = "$l" ] ; then
+                        l=$(($l + $k))
+                        k=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $j ] ; then
+                if [ "$j" = "$k" ] ; then
+                        k=$(($k + $j))
+                        j=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $i ] ; then
+                if [ "$i" = "$j" ] ; then
+                         j=$(($j + $i))
+                         i=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        ## row 4
+        if [ ! -z $o ] ; then
+                if [ "$o" = "$p" ] ; then
+                        p=$(($p + $o))
+                        o=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $n ] ; then
+                if [ "$n" = "$o" ] ; then
+                        o=$(($o + $n))
+                        n=""
+                        count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $m ] ; then
+                if [ "$m" = "$n" ] ; then
+                         n=$(($n + $m))
+                         m=""
+                         count=$(($count - 1))
+                        mm="1"
+                fi
+        fi
+
+fi
+}
+##mode wasd
+move () 
+{
+   in=$1
+   if [ "$in" = "w" ] ; then
+	  #colum 1
+        if [  ! -z $e ] ; then
+                if [ -z $a ] ; then
+                        a=$e
+                        e=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $i ] ; then
+                if [ -z $e ] ; then
+                        if [ -z $a ] ; then
+                                a=$i
+                                i=""
+	                        mm="1"
+                        else
+                                e=$i
+                                i=""
+                                mm="1"
+                fi
+                fi
+        fi
+        if [ ! -z $m ] ; then
+                if [ -z $i ] ; then
+                        if [ -z $e ] ; then
+                                if [ -z $a ] ; then
+                                        a=$m
+                                        m=""
+		                        mm="1"
+                                else
+                                        e=$m
+                                        m=""
+                                        mm="1"
+                fi
+                        else
+                                i=$m
+                                m=""
+	                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 2
+          if [  ! -z $f ] ; then
+                if [ -z $b ] ; then
+                        b=$f
+                        f=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $j ] ; then
+                if [ -z $f ] ; then
+                        if [ -z $b ] ; then
+                                b=$j
+                                j=""
+                        mm="1"
+                        else
+                                f=$j
+                                j=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $n ] ; then
+                if [ -z $j ] ; then
+                        if [ -z $f ] ; then
+                                if [ -z $b ] ; then
+                                        b=$n
+                                        n=""
+                        mm="1"
+                                else
+                                        f=$n
+                                        n=""
+                        mm="1"
+                                fi
+                        else
+                                j=$n
+                                n=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 3
+         if [  ! -z $g ] ; then
+                if [ -z $c ] ; then
+                        c=$g
+                        g=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $k ] ; then
+                if [ -z $g ] ; then
+                        if [ -z $c ] ; then
+                                c=$k
+                                k=""
+                        mm="1"
+                        else
+                                g=$k
+                                k=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $o ] ; then
+                if [ -z $k ] ; then
+                        if [ -z $g ] ; then
+                                if [ -z $c ] ; then
+                                        c=$o
+                                        o=""
+                        mm="1"
+                                else
+                                        g=$o
+                                        o=""
+                        mm="1"
+                                fi
+                        else
+                                k=$o
+                                o=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 4
+         if [  ! -z $h ] ; then
+                if [ -z $d ] ; then
+                        d=$h
+                        h=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $l ] ; then 
+				if [ -z $h ] ; then
+                        if [ -z $d ] ; then
+                                d=$l
+                                l=""
+                        mm="1"
+                        else
+                                h=$l
+                                l=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $p ] ; then
+                if [ -z $l ] ; then
+                        if [ -z $h ] ; then
+                                if [ -z $d ] ; then
+                                        d=$p
+                                        p=""
+                        mm="1"
+                                else
+                                        h=$p
+                                        p=""
+                        mm="1"
+                                fi
+                        else
+                                l=$p
+                                p=""
+                        mm="1"
+                        fi
+                fi
+        fi
+   elif [ "$in" = "a" ] ; then
+	  #colum 1
+        if [  ! -z $b ] ; then
+                if [ -z $a ] ; then
+                        a=$b
+                        b=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $c ] ; then
+                if [ -z $b ] ; then
+                        if [ -z $a ] ; then
+                                a=$c
+                                c=""
+                        mm="1"
+                        else
+                                b=$c
+                                c=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $d ] ; then
+                if [ -z $c ] ; then
+                        if [ -z $b ] ; then
+                                if [ -z $a ] ; then
+                                        a=$d
+                                        d=""
+                        mm="1"
+                                else
+                                        b=$d
+                                        d=""
+                                fi
+                        mm="1"
+                        else
+                                c=$d
+                                d=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 2
+         if [  ! -z $f ] ; then
+                if [ -z $e ] ; then
+                        e=$f
+                        f=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $g ] ; then
+                if [ -z $f ] ; then
+                        if [ -z $e ] ; then
+                                e=$g
+                                g=""
+                        mm="1"
+                        else
+                                f=$g
+                                g=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $h ] ; then
+                if [ -z $g ] ; then
+                        if [ -z $f ] ; then
+				if [ -z $e ] ; then
+                                        e=$h
+                                        h=""
+                        mm="1"
+                                else
+                                        f=$h
+                                        h=""
+                        mm="1"
+                                fi
+                        else
+                                g=$h
+                                h=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 3
+         if [  ! -z $j ] ; then
+                if [ -z $i ] ; then
+                        i=$j
+                        j=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $k ] ; then
+                if [ -z $j ] ; then
+                        if [ -z $i ] ; then
+                                i=$k
+                                k=""
+                        mm="1"
+                        else
+                                j=$k
+                                k=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $l ] ; then
+                if [ -z $k ] ; then
+                        if [ -z $j ] ; then
+                                if [ -z $i ] ; then
+                                        i=$l
+                                        l=""
+                        mm="1"
+                                else
+                                        j=$l
+                                        l=""
+                        mm="1"
+                                fi
+                        else
+                                k=$l
+                                l=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 4
+         if [  ! -z $n ] ; then
+                if [ -z $m ] ; then
+                        m=$n
+                        n=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $o ] ; then 
+				if [ -z $n ] ; then
+                        if [ -z $m ] ; then
+                                m=$o
+                                o=""
+                        mm="1"
+                        else
+                                n=$o
+                                o=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $p ] ; then
+                if [ -z $o ] ; then
+                        if [ -z $n ] ; then
+                                if [ -z $m ] ; then
+                                        m=$p
+                                        p=""
+                        mm="1"
+                                else
+                                        n=$p
+                                        p=""
+                        mm="1"
+                                fi
+                        else
+                                o=$p
+                                p=""
+                        mm="1"
+                        fi
+                fi
+        fi
+
+   elif [ "$in" = "s" ] ; then
+	     #colum 1
+	if [  ! -z $i ] ; then
+		if [ -z $m ] ; then
+			m=$i
+			i=""
+                        mm="1"
+		fi
+	fi
+	if [ ! -z $e ] ; then
+		if [ -z $i ] ; then
+			if [ -z $m ] ; then
+				m=$e
+				e=""	
+                        mm="1"
+			else
+				i=$e
+				e=""
+                        mm="1"
+			fi		
+		fi
+        fi
+	if [ ! -z $a ] ; then
+                if [ -z $e ] ; then
+                        if [ -z $i ] ; then
+				if [ -z $m ] ; then
+					m=$a
+					a=""
+                        mm="1"
+				else
+					i=$a
+					a=""
+                        mm="1"
+				fi
+			else 
+				e=$a
+				a=""
+                        mm="1"
+			fi
+		fi					
+        fi
+	#colum 2
+	 if [  ! -z $j ] ; then
+                if [ -z $n ] ; then
+                        n=$j
+                        j=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $f ] ; then
+                if [ -z $j ] ; then
+                        if [ -z $n ] ; then
+                                n=$f
+                                f=""
+                        mm="1"
+                        else
+                                j=$f
+                                f=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $b ] ; then
+                if [ -z $f ] ; then
+                        if [ -z $j ] ; then
+                                if [ -z $n ] ; then
+                                        n=$b
+                                        b=""
+                        mm="1"
+                                else
+                                        j=$b
+                                        b=""
+                        mm="1"
+                                fi
+                        else
+                                f=$b
+                                b=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 3
+	 if [  ! -z $k ] ; then
+                if [ -z $o ] ; then
+                        o=$k
+                        k=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $g ] ; then
+                if [ -z $k ] ; then
+                        if [ -z $o ] ; then
+                                o=$g
+                                g=""
+                        mm="1"
+                        else
+                                k=$g
+                                g=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $c ] ; then
+                if [ -z $g ] ; then
+                        if [ -z $k ] ; then
+                                if [ -z $o ] ; then
+                                        o=$c
+                                        c=""
+                        mm="1"
+                                else
+                                        k=$c
+                                        c=""
+                        mm="1"
+                                fi
+                        else
+                                g=$c
+                                c=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 4
+	 if [  ! -z $l ] ; then
+                if [ -z $p ] ; then
+                        p=$l
+                        l=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $h ] ; then
+                if [ -z $l ] ; then
+                        if [ -z $p ] ; then
+                                p=$h
+                                h=""
+                        mm="1"
+                        else
+                                l=$h
+                                h=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $d ] ; then
+                if [ -z $h ] ; then
+                        if [ -z $l ] ; then
+                                if [ -z $p ] ; then
+                                        p=$d
+                                        d=""
+                        mm="1"
+                                else
+                                        l=$d
+                                        d=""
+                        mm="1"
+                                fi
+                        else
+                                h=$d
+                                d=""
+                        mm="1"
+                        fi
+                fi
+        fi
+
+   elif [ "$in" = "d" ] ; then
+	  #colum 1
+        if [  ! -z $c ] ; then
+                if [ -z $d ] ; then
+                        d=$c
+                        c=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $b ] ; then
+                if [ -z $c ] ; then
+                        if [ -z $d ] ; then
+                                d=$b
+                                b=""
+                        mm="1"
+                        else
+                                c=$b
+                                b=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $a ] ; then
+                if [ -z $b ] ; then
+                        if [ -z $c ] ; then
+                                if [ -z $d ] ; then
+                                        d=$a
+                                        a=""
+                        mm="1"
+                                else
+                                        c=$a
+                                        a=""
+                        mm="1"
+                                fi
+                        else
+                                b=$a
+                                a=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 2
+          if [  ! -z $g ] ; then
+                if [ -z $h ] ; then
+                        h=$g
+                        g=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $f ] ; then
+                if [ -z $g ] ; then
+                        if [ -z $h ] ; then
+                                h=$f
+                                f=""
+                        mm="1"
+                        else
+                                g=$f
+                                f=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $e ] ; then
+                if [ -z $f ] ; then
+                        if [ -z $g ] ; then
+                                if [ -z $h ] ; then
+                                        h=$e
+                                        e=""
+                        mm="1"
+                                else
+                                        g=$e
+                                        e=""
+                        mm="1"
+                                fi
+                        else
+                                f=$e
+                                e=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 3
+         if [  ! -z $k ] ; then
+                if [ -z $l ] ; then
+                        l=$k
+                        k=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $j ] ; then
+                if [ -z $k ] ; then
+                        if [ -z $l ] ; then
+                                l=$j
+                                j=""
+                        mm="1"
+                        else
+                                k=$j
+                                j=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $i ] ; then
+                if [ -z $j ] ; then
+                        if [ -z $k ] ; then
+                                if [ -z $l ] ; then
+                                        l=$i
+                                        i=""
+                        mm="1"
+                                else
+                                        k=$i
+                                        i=""
+                        mm="1"
+                                fi
+                        else
+                                j=$i
+                                i=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        #colum 4
+         if [  ! -z $o ] ; then
+                if [ -z $p ] ; then
+                        p=$o
+                        o=""
+                        mm="1"
+                fi
+        fi
+        if [ ! -z $n ] ; then 
+				if [ -z $o ] ; then
+                        if [ -z $p ] ; then
+                                p=$n
+                                n=""
+                        mm="1"
+                        else
+                                o=$n
+                                n=""
+                        mm="1"
+                        fi
+                fi
+        fi
+        if [ ! -z $m ] ; then
+                if [ -z $n ] ; then
+                        if [ -z $o ] ; then
+                                if [ -z $p ] ; then
+                                        p=$m
+                                        m=""
+                        mm="1"
+                                else
+                                        o=$m
+                                        m=""
+                        mm="1"
+                                fi
+                        else
+                                n=$m
+                                m=""
+                        mm="1"
+                        fi
+                fi
+        fi
+   fi
+}
+
+############################
+#####get random var
+getrand ()
+{
+        range=$1
+        set `od -An -N2  < /dev/urandom`
+        echo $(($1%$range+1))
+}
+
+#####get single char
+getc ()
+ {
+     stty raw
+     tmp=`dd bs=1 count=1 2>/dev/null`
+     eval $1='$tmp'
+     stty cooked
+ }
+####declare 16 elements
+a="";b="";c="";d=""
+e="";f="";g="";h=""
+i="";j="";k="";l=""
+m="";n="";o="";p=""
+aa="";bb="";cc="";dd=""
+ee="";ff="";gg="";hh=""
+ii="";jj="";kk="";ll=""
+mm="";nn="";oo="";pp=""
+count=0;count2=0
+#####genetae #1  rand 2 4
+generate ()
+{
+      tmp="?"
+if [ $count -le 15 ] ; then
+   while [ ! -z $tmp ] ; do
+	index=`getrand 16`  #1~16
+	 case $index in
+                1) tmp=$a ;;
+                2) tmp=$b ;;
+                3) tmp=$c ;;
+		4) tmp=$d ;;
+		5) tmp=$e ;;
+		6) tmp=$f ;;
+		7) tmp=$g ;;
+		8) tmp=$h ;;
+		9) tmp=$i ;;
+		10) tmp=$j ;;
+	        11) tmp=$k ;;
+	        12) tmp=$l ;;
+	        13) tmp=$m ;;
+		14) tmp=$n ;;
+		15) tmp=$o ;;
+		16) tmp=$p ;;	
+ 	  esac
+   done
+   case $index in
+                1) a=`getrand 2` 
+		   a=$(( $a * 2 ));;
+                2) b=`getrand 2` 
+		   b=$(( $b * 2 ));;
+                3) c=`getrand 2` 
+		   c=$(( $c * 2 ));;
+		4) d=`getrand 2` 
+		   d=$(( $d * 2 ));;
+		5) e=`getrand 2` 
+		   e=$(( $e * 2 ));;
+		6) f=`getrand 2` 
+		   f=$(( $f * 2 ));;
+		7) g=`getrand 2` 
+		   g=$(( $g * 2 ));;
+		8) h=`getrand 2` 
+		   h=$(( $h * 2 ));;
+		9) i=`getrand 2` 
+		   i=$(( $i * 2 ));;
+		10) j=`getrand 2` 
+		    j=$(( $j * 2 ));;
+		11) k=`getrand 2` 
+		    k=$(( $k * 2 ));;
+		12) l=`getrand 2` 
+		    l=$(( $l * 2 ));;
+		13) m=`getrand 2` 
+		    m=$(( $m * 2 ));;
+		14) n=`getrand 2` 
+		    n=$(( $n * 2 ));;
+		15) o=`getrand 2` 
+		    o=$(( $o * 2 ));;
+		16) p=`getrand 2` 
+		    p=$(( $p * 2 ));;
+   esac              
+   count=$(( $count + 1 ))
+fi
+}
+
+########################################################################
+########################################################################
+dialog --exit-label "Play a Game" --tailbox welcome 18 35
+option=""
+while [ "$option" != "Q" ]
+do
+	dialog --menu "Command Line 2048" 20 50 5 N "New Game - Start a new 2048 game" R "Resume - Resume previous game" L "Load - Load from previous saved game" S "Save - Save current game state" Q "Quit" 2>answer
+	option=`cat answer`
+	
+	if [ "$option" = "N" ] ; then
+		game 1
+	elif [ "$option" = "R" ] ; then
+		game
+	elif [ "$option" = "L" ] ; then
+		a=$aa
+                b=$bb
+                c=$cc
+                d=$dd
+                e=$ee
+                f=$ff
+                g=$gg
+                h=$hh
+                i=$ii
+                j=$jj
+                k=$kk
+                l=$ll
+                m=$mm
+                n=$nn
+                o=$oo
+                p=$pp
+                count=$count2
+		dialog --msgbox "Game have been loaded." 8 50
+	elif [ "$option" = "S" ] ; then
+		aa=$a
+	        bb=$b
+		cc=$c
+ 		dd=$d
+		ee=$e
+ 		ff=$f
+ 		gg=$g
+ 		hh=$h	
+ 		ii=$i
+ 		jj=$j
+ 		kk=$k
+		ll=$l
+ 		mm=$m
+ 		nn=$n
+ 		oo=$o
+ 		pp=$p
+ 		count2=$count
+		dialog --msgbox "Your game progress have been saved." 8 50
+	fi
+done
+
+
+
